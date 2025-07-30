@@ -4,6 +4,7 @@ import { createNewTask } from '@/services/TaskService';
 import { CreateTaskFormState } from '@/types';
 import Form from 'next/form'
 import { useActionState } from 'react';
+import { name } from './../../../node_modules/eslint/lib/rules/utils/ast-utils';
 
 export default function CreateTaskComponent() {
   const initialFormState: CreateTaskFormState = {
@@ -32,6 +33,7 @@ export default function CreateTaskComponent() {
               <input
                 type="text"
                 id="title"
+                name='title'
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter task title..."
               />
@@ -44,6 +46,7 @@ export default function CreateTaskComponent() {
               </label>
               <select
                 id="priority"
+                name='priority'
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="low">Low</option>
@@ -59,6 +62,7 @@ export default function CreateTaskComponent() {
             </label>
             <textarea
               id="description"
+              name='description'
               rows="3"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter task description..."

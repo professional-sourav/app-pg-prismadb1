@@ -2,6 +2,7 @@
 
 import { CreateTaskData, CreateTaskFormState, Errors, Tasks } from "@/types";
 import { createTask, getAllTasksWithCount } from "../../lib/prisma";
+import { redirect } from "next/navigation";
 
 export const getTasks = async (): Promise<Tasks> => {
   const { tasks, totalCount } = await getAllTasksWithCount();
@@ -17,6 +18,8 @@ export const getTasks = async (): Promise<Tasks> => {
 export const createNewTask = async (prevState: CreateTaskFormState, taskData: FormData): Promise<CreateTaskFormState> => {
   try {
 
+    console.log("Received task data:", taskData.get("title"), taskData.get("description"), taskData.get("priority"));
+
     const task: CreateTaskData = {
       title: taskData.get("title") as string,
       description: taskData.get("description") as string,
@@ -28,6 +31,8 @@ export const createNewTask = async (prevState: CreateTaskFormState, taskData: Fo
       description: '',
       priority: ''
     };
+    
+    console.log("Creating task with data:", task);
 
     if (!task.title) {
       errors.title = "Title is required";
@@ -37,9 +42,7 @@ export const createNewTask = async (prevState: CreateTaskFormState, taskData: Fo
       errors.priority = "Priority is required";
     }
 
-    if (task.description && task.description.length > 500) {
-      errors.description = "Description cannot exceed 500 characters";
-    }
+    console.log("Task errors:", errors);
 
     if (errors.title || errors.priority || errors.description) {
       return { errors };
@@ -47,13 +50,11 @@ export const createNewTask = async (prevState: CreateTaskFormState, taskData: Fo
 
     await createTask(task);
 
-    return {
-      errors: {
-        title: '',
-        description: '',
-        priority: ''
-      }
-    };
+    console.log("Task created successfully", task);
+
+    redirect("/dashboard");
+
+    // return { errors: { title: '', description: '', priority: '' } };
   } catch (error) {
     console.error("Error creating task:", error);
     throw error;

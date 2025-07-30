@@ -44,11 +44,11 @@ export default async function TaskList() {
                             {task.description}
                           </p>
                         )}
-                        <div className="mt-2">
+                        {/* <div className="mt-2">
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getPriorityColor(task.priority)}`}>
                             {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)} Priority
                           </span>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     

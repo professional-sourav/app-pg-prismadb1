@@ -6,6 +6,7 @@ import Form from 'next/form'
 import { useActionState } from 'react';
 import TaskPopup from '../modals/TaskPopup';
 import TaskCategory from './TaskCategory';
+import CustomPopup from '../CustomPopup';
 
 export default function CreateTaskComponent() {
   const initialFormState: CreateTaskFormState = {
@@ -82,7 +83,7 @@ export default function CreateTaskComponent() {
               type="button" 
               className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" 
               aria-haspopup="dialog" 
-              aria-expanded="false" 
+              aria-expanded="false"
               aria-controls="task-category-modal" 
               data-hs-overlay="#task-category-modal">
               Task Category
@@ -91,8 +92,10 @@ export default function CreateTaskComponent() {
         </div>
       </Form>
       <TaskPopup id="task-category-modal">
-        <TaskCategory />
+        <TaskCategory id="task-category-modal" />
       </TaskPopup>
+
+      <CustomPopup />
     </div>
   );
 }

@@ -4,7 +4,8 @@ import { createNewTask } from '@/services/TaskService';
 import { CreateTaskFormState } from '@/types';
 import Form from 'next/form'
 import { useActionState } from 'react';
-import { name } from './../../../node_modules/eslint/lib/rules/utils/ast-utils';
+import TaskPopup from '../modals/TaskPopup';
+import TaskCategory from './TaskCategory';
 
 export default function CreateTaskComponent() {
   const initialFormState: CreateTaskFormState = {
@@ -69,15 +70,29 @@ export default function CreateTaskComponent() {
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={isPending}
-            className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200"
-          >
-            Add Task
-          </button>
+          <div className='flex justify-start items-center gap-4'>
+            <button
+              type="submit"
+              disabled={isPending}
+              className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200">
+              Add Task
+            </button>
+
+            <button 
+              type="button" 
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" 
+              aria-haspopup="dialog" 
+              aria-expanded="false" 
+              aria-controls="task-category-modal" 
+              data-hs-overlay="#task-category-modal">
+              Task Category
+            </button>
+          </div>
         </div>
       </Form>
+      <TaskPopup id="task-category-modal">
+        <TaskCategory />
+      </TaskPopup>
     </div>
   );
 }

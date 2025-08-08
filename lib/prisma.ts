@@ -1,4 +1,4 @@
-import { CreateTaskData, Task } from "@/types";
+import { CreateTaskData } from "@/types";
 import { PrismaClient } from "../src/generated/prisma";
 
 export const prisma = new PrismaClient();
@@ -21,7 +21,7 @@ export async function createTask(data: CreateTaskData) {
     data: {
       title,
       description: description || null,
-      completed: false, // Default value for completed
+      completed: false,
     },
   });
 }

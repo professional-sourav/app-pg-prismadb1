@@ -1,8 +1,9 @@
 "use client";
 
-import { createNewTask } from '@/services/TaskService';
-import { CreateTaskFormState } from '@/types';
+import { createNewTask, getAllCategories } from '@/services/TaskService';
+import { Categories, Category, CreateTaskFormState } from '@/types';
 import Form from 'next/form'
+import { useEffect, useState } from 'react';
 import { useActionState } from 'react';
 import TaskPopup from '../modals/TaskPopup';
 import TaskCategory from './TaskCategory';
@@ -17,7 +18,15 @@ export default function CreateTaskComponent() {
   }
 
   const [state, formAction, isPending] = useActionState(createNewTask, initialFormState);
+  const [allCategories, setAllCategories] = useState<Category[]>([]);
 
+  useEffect(() => {
+    getAllCategories().then(
+      (categories: Categories) => {
+        setAllCategories(categories.categories);
+      }
+    );
+  }, []);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -40,6 +49,22 @@ export default function CreateTaskComponent() {
               />
               <p className="text-red-500 text-sm">{state.errors.title}</p>
             </div>
+            <div>
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                <select
+                    id="category"
+                    name='category'
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="">Select a category</option>
+                  {allCategories.map((category: Category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+            </div>   
+
 
             <div>
               <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-2">

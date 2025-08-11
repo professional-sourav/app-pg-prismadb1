@@ -1,7 +1,7 @@
 "use server";
 
-import { CreateCategoryData, CreateCategoryFormState, CreateTaskData, CreateTaskFormState, Errors, Tasks } from "@/types";
-import { createCategory, createTask, getAllTasksWithCount } from "../../lib/prisma";
+import { Categories, CreateCategoryData, CreateCategoryFormState, CreateTaskData, CreateTaskFormState, Errors, Tasks } from "@/types";
+import { createCategory, createTask, getAllTasksWithCount, getCategories } from "../../lib/prisma";
 import { redirect } from "next/navigation";
 import { CategoryFormErrors } from "../types";
 
@@ -89,3 +89,11 @@ export const createNewCategory = async (prevState: CreateCategoryFormState, cate
 
     redirect("/dashboard");
 }
+
+export const getAllCategories = async (): Promise<Categories> => {
+  const categories = await getCategories();
+
+  return {
+    categories
+  };
+};

@@ -27,6 +27,10 @@ export type Category = {
     name: string;
 }
 
+export type Categories = {
+    categories: Category[];
+}
+
 export type CreateCategoryData = {
     name: string
 }

@@ -1,5 +1,5 @@
 import { CreateCategoryData, CreateTaskData } from "@/types";
-import { PrismaClient } from "../src/generated/prisma";
+import { PrismaClient } from "../prisma-client";
 
 export const prisma = new PrismaClient();
 
@@ -34,4 +34,8 @@ export async function createCategory(data: CreateCategoryData) {
       name,
     },
   });
+}
+
+export async function getCategories() {
+  return await prisma.category.findMany();
 }

@@ -1,4 +1,4 @@
-import { CreateTaskData } from "@/types";
+import { CreateCategoryData, CreateTaskData } from "@/types";
 import { PrismaClient } from "../src/generated/prisma";
 
 export const prisma = new PrismaClient();
@@ -22,6 +22,16 @@ export async function createTask(data: CreateTaskData) {
       title,
       description: description || null,
       completed: false,
+    },
+  });
+}
+
+export async function createCategory(data: CreateCategoryData) {
+  const { name } = data;
+
+  return await prisma.category.create({
+    data: {
+      name,
     },
   });
 }

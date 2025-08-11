@@ -1,8 +1,9 @@
 "use server";
 
-import { CreateTaskData, CreateTaskFormState, Errors, Tasks } from "@/types";
-import { createTask, getAllTasksWithCount } from "../../lib/prisma";
+import { CreateCategoryData, CreateCategoryFormState, CreateTaskData, CreateTaskFormState, Errors, Tasks } from "@/types";
+import { createCategory, createTask, getAllTasksWithCount } from "../../lib/prisma";
 import { redirect } from "next/navigation";
+import { CategoryFormErrors } from "../types";
 
 export const getTasks = async (): Promise<Tasks> => {
   const { tasks, totalCount } = await getAllTasksWithCount();
@@ -60,3 +61,31 @@ export const createNewTask = async (prevState: CreateTaskFormState, taskData: Fo
     throw error;
   }
 };
+
+
+export const createNewCategory = async (prevState: CreateCategoryFormState, categoryState: FormData): Promise<CreateCategoryFormState> => {
+
+    const newCategoryData: CreateCategoryData = {
+        name: categoryState.get("name") as string
+    };
+
+    console.log("Creating category with data:", newCategoryData);
+
+    const errors: CategoryFormErrors = {
+        name: ''
+    };
+
+    if (newCategoryData.name.trim() === '') {
+      errors.name = "Name is required";
+    }
+
+    if (errors.name) {
+        return { errors };
+    }
+
+    await createCategory(newCategoryData);
+
+    console.log("Category created successfully", newCategoryData);
+
+    redirect("/dashboard");
+}

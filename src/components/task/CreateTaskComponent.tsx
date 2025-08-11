@@ -6,7 +6,6 @@ import Form from 'next/form'
 import { useActionState } from 'react';
 import TaskPopup from '../modals/TaskPopup';
 import TaskCategory from './TaskCategory';
-import CustomPopup from '../CustomPopup';
 
 export default function CreateTaskComponent() {
   const initialFormState: CreateTaskFormState = {
@@ -94,8 +93,6 @@ export default function CreateTaskComponent() {
       <TaskPopup id="task-category-modal">
         <TaskCategory id="task-category-modal" />
       </TaskPopup>
-
-      <CustomPopup />
     </div>
   );
 }

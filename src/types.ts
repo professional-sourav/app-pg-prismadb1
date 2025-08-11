@@ -22,6 +22,15 @@ export type CreateTaskData = {
     priority?: 'low' | 'medium' | 'high';
 }
 
+export type Category = {
+    id: number;
+    name: string;
+}
+
+export type CreateCategoryData = {
+    name: string
+}
+
 export type Errors = {
     title: string;
     description?: string;
@@ -30,4 +39,12 @@ export type Errors = {
 
 export type CreateTaskFormState = {
     errors: Errors;
+}
+
+export type CategoryFormErrors = {
+    name: string;
+}
+
+export type CreateCategoryFormState = {
+    errors: CategoryFormErrors;
 }
